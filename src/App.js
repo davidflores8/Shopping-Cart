@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PaginaPrincipal from "./components/PaginaPrincipal"
 
 function App() {
