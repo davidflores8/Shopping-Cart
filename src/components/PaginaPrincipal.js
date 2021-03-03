@@ -6,23 +6,47 @@ class PaginaPrincipal extends Component {
     super();
     this.state = {
       datos: data.products,
-      cantidad: 1,
+      cantidad: 0,
+      total: 0,
     };
   }
 
-  agregarCant = () => {
-    if (this.state.cantidad < 10)
-      this.setState({
-        cantidad: this.state.cantidad + 1,
-      });
-  };
 
-  quitarCant = () => {
-    if (this.state.cantidad > 1)
-      this.setState({
-        cantidad: this.state.cantidad - 1,
-      });
-  };
+  agregarCantidad(index) {
+        const { datos: oldDatos } = this.state;
+        const datos = oldDatos.map(p => {
+          if (p.id === index) {
+            p.cantidad += 1;
+            return p;
+          }
+          return p;
+        });
+
+        this.setState(datos);
+
+        this.setState({
+          total: Math.round((this.state.total + datos[index].price))
+        })
+  }
+
+  quitarCantidad(index) {
+        const { datos: oldDatos } = this.state;
+        const datos = oldDatos.map(p => {
+          if (p.id === index) {
+            p.cantidad -= 1;
+            return p;
+          }
+          return p;
+        });
+
+        this.setState(datos);
+
+        this.setState({
+          total: Math.round((this.state.total - datos[index].price))
+        })
+  }
+
+
 
   render() {
     return (
@@ -33,7 +57,7 @@ class PaginaPrincipal extends Component {
               <div className="card wish-list mb-3">
                 <div className="card-body">
                   <h5 className="mb-4">Carrito</h5>
-                  {this.state.datos.map((dato) => {
+                  {this.state.datos.map((dato, index) => {
                     return (
                       <div key={dato.id} className="row mb-4">
                         <div className="col-md-5 col-lg-3 col-xl-3">
@@ -67,7 +91,7 @@ class PaginaPrincipal extends Component {
                                   aria-label="Basic example"
                                 >
                                   <button
-                                    onClick={() => this.agregarCant()}
+                                    onClick={() => this.agregarCantidad(index)}
                                     type="button"
                                     className="btn btn-secondary"
                                   >
@@ -77,10 +101,10 @@ class PaginaPrincipal extends Component {
                                     type="button"
                                     className="btn btn-secondary "
                                   >
-                                    {this.state.cantidad}
+                                    {dato.cantidad}
                                   </button>
                                   <button
-                                    onClick={() => this.quitarCant()}
+                                    onClick={() => this.quitarCantidad(index)}
                                     type="button"
                                     className="btn btn-secondary"
                                   >
@@ -102,8 +126,8 @@ class PaginaPrincipal extends Component {
                                   type="button"
                                   className="card-link-secondary small text-uppercase mr-3"
                                 >
-                                  <i className="fas fa-trash-alt mr-1"></i> Quitar
-                                  item
+                                  <i className="fas fa-trash-alt mr-1"></i>{" "}
+                                  Quitar item
                                 </a>
                                 <a
                                   href="#!"
@@ -142,10 +166,6 @@ class PaginaPrincipal extends Component {
                 <div className="card-body">
                   <h5 className="mb-3">El total es</h5>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                      Sub-total
-                      <span>$25.98</span>
-                    </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                       Entrega
                       <span>Gratis</span>
@@ -158,7 +178,7 @@ class PaginaPrincipal extends Component {
                         </strong>
                       </div>
                       <span>
-                        <strong>$53.98</strong>
+                        <strong>$ {this.state.total}</strong>
                       </span>
                     </li>
                   </ul>
@@ -169,23 +189,6 @@ class PaginaPrincipal extends Component {
                   >
                     Ir a total
                   </button>
-                </div>
-              </div>
-
-              <div className="card mb-3">
-                <div className="card-body">
-                  <div className="collapse" id="collapseExample1">
-                    <div className="mt-3">
-                      <div className="md-form md-outline mb-0">
-                        <input
-                          type="text"
-                          id="discount-code1"
-                          className="form-control font-weight-light"
-                          placeholder="Enter discount code"
-                        />
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
