@@ -15,7 +15,7 @@ class PaginaPrincipal extends Component {
   agregarCantidad(index) {
         const { datos: oldDatos } = this.state;
         const datos = oldDatos.map(p => {
-          if (p.id === index) {
+          if (p.id === index && p.cantidad<10) {
             p.cantidad += 1;
             return p;
           }
@@ -32,7 +32,7 @@ class PaginaPrincipal extends Component {
   quitarCantidad(index) {
         const { datos: oldDatos } = this.state;
         const datos = oldDatos.map(p => {
-          if (p.id === index) {
+          if (p.id === index && p.cantidad>0) {
             p.cantidad -= 1;
             return p;
           }
@@ -54,7 +54,7 @@ class PaginaPrincipal extends Component {
         <section>
           <div className="row">
             <div className="col-lg-8">
-              <div className="card wish-list mb-3">
+              <div className="card  mb-3">
                 <div className="card-body">
                   <h5 className="mb-4">Carrito</h5>
                   {this.state.datos.map((dato, index) => {
@@ -64,7 +64,7 @@ class PaginaPrincipal extends Component {
                           <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
                             <img
                               className="img-fluid w-100"
-                              src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                              src={dato.image}
                               alt="Sample"
                             />
                           </div>
@@ -146,17 +146,17 @@ class PaginaPrincipal extends Component {
                             </div>
                           </div>
                         </div>
-                        <hr />
                       </div>
+                       
                     );
                   })}
                 </div>
               </div>
-
+              
               <div className="card mb-3">
                 <div className="card-body">
                   <h5 className="mb-4">Tiempo de entrega</h5>
-
+                     
                   <p className="mb-0"> Martes o Miércoles.</p>
                 </div>
               </div>
