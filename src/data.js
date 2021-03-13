@@ -17,14 +17,14 @@ const data = {
         id:2,
         name: 'Dragon Ball Super',
         price:18.99,
-       // image:
+       image: "https://images-na.ssl-images-amazon.com/images/I/81S8xoiksVL.jpg",   
        cantidad:0
     },
     {
         id: 3,
         name: 'The Promised Neverland',
         price:9.99,
-       // image:
+        image: "https://i.pinimg.com/564x/13/f1/ed/13f1edea2155929ab1f0cdf46b2f71e8.jpg",
         cantidad:0
 
     },
@@ -32,7 +32,7 @@ const data = {
         id: 4,
         name: 'My Hero Academia',
         price:48.99,
-        //image:
+        image: "https://i.pinimg.com/564x/b8/d6/c6/b8d6c625275d47dc790039fa774dfd4e.jpg",
         cantidad:0
     }
 

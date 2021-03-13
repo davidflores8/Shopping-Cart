@@ -30,9 +30,6 @@ class PaginaPrincipal extends Component {
     oldFavoritos.push(this.state.datos[index])
     this.setState(oldFavoritos)
     this.quitarLibro(index)
-
-  
-
   }
 
   quitarLibro(index) {
@@ -57,6 +54,7 @@ class PaginaPrincipal extends Component {
     this.setState({
       total: Math.round(this.state.total + datos[index].price),
     });
+    
   }
 
   quitarCantidad(index) {
@@ -208,8 +206,102 @@ class PaginaPrincipal extends Component {
                   >
                     <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                   </svg>
+                  {/*incio de mapeo del arreglo de favoritos */}
+                  {this.state.favoritos.map((dato, index) => {
+                    return (
+                      <div key={dato.id} className="row mb-4">
+                        <div className="col-md-5 col-lg-3 col-xl-3">
+                          <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                            <img
+                              className="img-fluid w-100"
+                              src={dato.image}
+                              alt="Sample"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-7 col-lg-9 col-xl-9">
+                          <div>
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                <h5 className="mb-5">{dato.name}</h5>
+                                <p className="mb-3 text-muted text-uppercase small">
+                                  Format - Hardcover
+                                </p>
+                                <p className="mb-3 text-muted text-uppercase small">
+                                  Language: English
+                                </p>
+                                <p className="fst-italic">
+                                  Choose Expedited Shipping at checkout for
+                                  guaranteed delivery by Wednesday, March 10
+                                </p>
+                              </div>
+                              <div>
+                                <div
+                                  className="btn-group"
+                                  role="group"
+                                  aria-label="Basic example"
+                                >
+                                  <button
+                                    onClick={() => this.agregarCantidad(index)}
+                                    type="button"
+                                    className="btn btn-secondary"
+                                  >
+                                    +
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn btn-secondary "
+                                  >
+                                    {dato.cantidad}
+                                  </button>
+                                  <button
+                                    onClick={() => this.quitarCantidad(index)}
+                                    type="button"
+                                    className="btn btn-secondary"
+                                  >
+                                    -
+                                  </button>
+                                </div>
+                                <small
+                                  id="passwordHelpBlock"
+                                  className="form-text text-muted text-center"
+                                >
+                                  Quantity
+                                </small>
+                              </div>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div>
+                                <a
+                                  href="#!"
+                                  type="button"
+                                  className="card-link-secondary small text-uppercase mr-3"
+                                  onClick={() => this.quitarLibro(index)}
+                                >
+                                  Remove item
+                                </a>
+                                <a
+                                  href="#!"
+                                  type="button"
+                                  className="card-link-secondary small text-uppercase"
+                                  onClick={()=>this.guardarFavoritos(index)}
+                                >
+                                  Add to Saved for later
+                                </a>
+                              </div>
+                              <p className="mb-0">
+                                <span>
+                                  <strong>${dato.price}</strong>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <hr />
+                      </div>
+                    );
+                  })}
 
-                  <p className="mb-0"> No items</p>
                 </div>
               </div>
             </div>
