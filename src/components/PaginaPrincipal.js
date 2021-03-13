@@ -1,13 +1,6 @@
 import data from "../data";
 import React, { Component } from "react";
 
-function clickMeRemove() {
-  alert("This item is going to be permanently removed from the shopping cart ");
-}
-
-function clickMeLater() {
-  alert("This item is going to be added to the saved for later");
-}
 
 function clickMe() {
   alert("You are about to be redirected to the Checkout");
@@ -21,6 +14,7 @@ class PaginaPrincipal extends Component {
       favoritos: [],
       cantidad: 0,
       total: 0,
+      impuestos: 5
     };
   }
 
@@ -67,11 +61,19 @@ class PaginaPrincipal extends Component {
       return p;
     });
 
-    this.setState(datos);
+    if(this.state.datos[index].cantidad==0){
+      this.setState({
+          total: 0
+        });
+    }
+    else{
+      this.setState({
+        total: Math.round(this.state.total - datos[index].price),
+      });
+    }
 
-    this.setState({
-      total: Math.round(this.state.total - datos[index].price),
-    });
+
+    
   }
 
   render() {
@@ -310,14 +312,14 @@ class PaginaPrincipal extends Component {
                 <div className="card-body">
                   <h5 className="text-center"> Order Summary</h5>
                   <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    Estimated Taxes:
-                    <span>$0.00</span>
+                    Order sub-total :
+                    <span>$ {this.state.total}</span>
                   </li>
 
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                       Estimated Shipping:
-                      <span>$0.01</span>
+                      <span>${this.state.impuestos}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
@@ -327,7 +329,7 @@ class PaginaPrincipal extends Component {
                         </strong>
                       </div>
                       <span>
-                        <strong>$ {this.state.total}.00</strong>
+                        <strong>$ {this.state.total>0 ? this.state.total + this.state.impuestos : 0}.00</strong>
                       </span>
                     </li>
                   </ul>
